@@ -76,15 +76,22 @@
                 opacity: 0;
             }
         }
-        .share-buttons {
-            margin-top: 20px;
-        }
-        .share-buttons a {
-            display: inline-block;
-            margin: 0 10px;
-            color: white;
-            text-decoration: none;
-            font-size: 24px;
+        .bubble {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-size: 18px;
+            display: none;
+            z-index: 1000;
+            font-family: inherit; /* 使用默认字体 */
+            max-width: 80%; /* 设置最大宽度 */
+            white-space: nowrap; /* 防止文字换行 */
+            text-align: center; /* 文字居中 */
         }
     </style>
 </head>
@@ -93,16 +100,19 @@
         <h1>我们的时间记录</h1>
         <div class="avatars">
             <div class="avatar">
-                <img src="./image/boy.jpg" alt="男孩头像"> <!-- 替换为情侣头像1 -->
+                <img src="./image/boy.jpg" alt="男孩头像" id="boyAvatar"> <!-- 替换为情侣头像1 -->
             </div>
             <div class="avatar">
-                <img src="./image/girl.jpg" alt="女孩头像"> <!-- 替换为情侣头像2 -->
+                <img src="./image/girl.jpg" alt="女孩头像" id="girlAvatar"> <!-- 替换为情侣头像2 -->
             </div>
         </div>
         <p id="timeElapsed" class="countdown"></p>
-        
     </div>
 
+    <div id="bubble" class="bubble"></div>
+
+    <!-- 使用CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lunar-javascript/1.6.12/lunar.min.js"></script>
     <script>
         function updateTimeElapsed() {
             const startDate = new Date(2024, 6, 25, 19, 30); // 设定为2024年7月25日19:30
@@ -140,8 +150,47 @@
             }, 1000);
         });
 
+        document.getElementById('girlAvatar').addEventListener('click', function() {
+            const now = new Date();
+            let year = now.getFullYear();
+            let month = now.getMonth() + 1;
+            let day = now.getDate();
+            let found = false;
+
+            while (!found) {
+                const solarDate = Solar.fromYmd(year, month, day);
+                const lunarDate = solarDate.getLunar();
+                if (lunarDate.getMonth() === 6 && lunarDate.getDay() === 13) {
+                    found = true;
+                    const bubble = document.getElementById('bubble');
+                    bubble.innerHTML = `我宝的下一个生日在：${year}年${month}月${day}日`;
+                    bubble.style.display = 'block';
+                    setTimeout(() => {
+                        bubble.style.display = 'none';
+                    }, 3000);
+                } else {
+                    const nextDate = new Date(year, month - 1, day + 1);
+                    year = nextDate.getFullYear();
+                    month = nextDate.getMonth() + 1;
+                    day = nextDate.getDate();
+                }
+            }
+        });
+
+        document.getElementById('boyAvatar').addEventListener('click', function() {
+            const bubble = document.getElementById('bubble');
+            bubble.innerHTML = '我不需要过生日';
+            bubble.style.display = 'block';
+            setTimeout(() => {
+                bubble.style.display = 'none';
+            }, 3000);
+        });
+
         document.addEventListener('DOMContentLoaded', (event) => {
-            document.getElementById('bgMusic').play();
+            const bgMusic = document.getElementById('bgMusic');
+            if (bgMusic) {
+                bgMusic.play();
+            }
         });
     </script>
 </body>
