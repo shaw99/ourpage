@@ -3,8 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="我们的时间记录 - 记录我们在一起的每一天">
+    <meta property="og:title" content="我们的时间记录">
+    <meta property="og:description" content="记录我们在一起的每一天">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="zh_CN">
+    <meta name="theme-color" content="#ff9a9e">
     <title>我们的时间记录</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💕</text></svg>">
+
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
@@ -12,10 +26,16 @@
         <h1>我们的时间记录</h1>
         <div class="avatars">
             <div class="avatar">
-                <img src="./image/boy.jpg" alt="男孩头像" id="boyAvatar">
+                <picture>
+                    <source srcset="./image/boy.webp" type="image/webp">
+                    <img src="./image/boy.jpg" alt="男孩头像" id="boyAvatar" width="100" height="100">
+                </picture>
             </div>
             <div class="avatar">
-                <img src="./image/girl.jpg" alt="女孩头像" id="girlAvatar">
+                <picture>
+                    <source srcset="./image/girl.webp" type="image/webp">
+                    <img src="./image/girl.jpg" alt="女孩头像" id="girlAvatar" width="100" height="100">
+                </picture>
             </div>
         </div>
         <p id="timeElapsed" class="countdown"></p>
@@ -23,8 +43,6 @@
 
     <div id="bubble" class="bubble"></div>
 
-    <!-- 使用CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lunar-javascript/1.6.12/lunar.min.js"></script>
     <script src="./js/script.js"></script>
 </body>
 </html>

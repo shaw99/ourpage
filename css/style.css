@@ -1,29 +1,26 @@
+/* ===== 基础样式 ===== */
 body {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Dancing Script', cursive, 'STKaiti', 'KaiTi', serif;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    overflow: hidden;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
     background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fad0c4, #a1c4fd, #c2e9fb);
     background-size: 400% 400%;
     animation: gradientAnimation 15s ease infinite;
 }
 
 @keyframes gradientAnimation {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
+/* ===== 主卡片 ===== */
 .header {
     text-align: center;
     color: white;
@@ -31,14 +28,24 @@ body {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 400px;
-    height: 300px;
+    max-width: 400px;
+    width: 90%;
+    min-height: 300px;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: 20px 0;
+    box-sizing: border-box;
 }
 
+.header h1 {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    margin: 0 0 10px;
+}
+
+/* ===== 头像 ===== */
 .avatars {
     display: flex;
     justify-content: center;
@@ -50,39 +57,40 @@ body {
     height: 100px;
     border-radius: 50%;
     border: 3px solid white;
+    object-fit: cover;
+    cursor: pointer;
 }
 
+/* ===== 计时器 ===== */
 .countdown {
-    font-size: 23px;
+    font-size: clamp(16px, 3vw, 23px);
     margin-top: 20px;
 }
 
+/* ===== 点击爱心 ===== */
 .heart {
-    position: absolute;
+    position: fixed;
     font-size: 24px;
     color: red;
     pointer-events: none;
-    animation: heartAnimation 1s linear forwards;
+    will-change: transform, opacity;
+    animation: heartAnimation 1s ease-out forwards;
+    z-index: 999;
 }
 
 @keyframes heartAnimation {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(5);
-        opacity: 0;
-    }
+    0%   { transform: scale(1) translateZ(0); opacity: 1; }
+    100% { transform: scale(5) translateZ(0); opacity: 0; }
 }
 
+/* ===== 气泡提示 ===== */
 .bubble {
     position: fixed;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     background: rgba(255, 255, 255, 0.9);
-    padding: 10px;
+    padding: 10px 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     font-size: 18px;
@@ -92,4 +100,44 @@ body {
     max-width: 80%;
     white-space: nowrap;
     text-align: center;
+}
+
+/* ===== 响应式适配 ===== */
+@media (max-width: 480px) {
+    .header {
+        width: 95%;
+        padding: 15px;
+        min-height: auto;
+    }
+
+    .avatar img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .avatars {
+        gap: 12px;
+    }
+
+    .countdown {
+        font-size: 15px;
+    }
+
+    .bubble {
+        font-size: 15px;
+        padding: 8px 15px;
+        white-space: normal;
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 360px) {
+    .avatar img {
+        width: 65px;
+        height: 65px;
+    }
+
+    .header {
+        padding: 12px;
+    }
 }
